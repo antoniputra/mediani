@@ -1,0 +1,17 @@
+[
+	{
+		"file": "http://frontend.dev/mediani/img/1.jpg",
+		"caption": "Awesome Images",
+		"description": "Some Description"
+	},
+	{
+		"file": "http://frontend.dev/mediani/img/2.jpg",
+		"caption": "Wonderful Images",
+		"description": "Lorem ipsum"
+	},
+	{
+		"file": "http://frontend.dev/mediani/img/3.jpg",
+		"caption": "Be Strong",
+		"description": "Jiffie duke derided kid fir jerrie duke jerk"
+	}
+]

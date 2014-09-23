@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Demo - Mediani.js </title>
+	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1>Mediani.js Demo</h1>
+			<p>Jquery simple media manager</p>
+
+			<hr>
+			<div class="well">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="control-label col-md-3">
+							Simple Template
+						</label>
+						<div class="col-md-9">
+							<input type="text" name="myMedia" class="form-control examplecok" data-url="http://frontend.dev/mediani/example/data/files.json" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-3">
+							Complex Template
+						</label>
+						<div class="col-md-9">
+							<span class="help-block">
+								gain the medias with more detailed information (caption, description, file)
+							</span>
+							<input type="text" name="Media" class="form-control examplecok" data-url="http://frontend.dev/mediani/example/data/files_details.json" data-mediani-type="complexTemplate" />
+						</div>
+					</div>
+
+					<hr>
+					<div class="form-group text-center">
+						<button type="submit" class="btn btn-primary btn-lg">
+							Submit &raquo;
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../dist/mediani.min.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+		$(function() {
+		    $('.examplecok').mediani();
+		});
+	</script>
+</body>
+</html>
