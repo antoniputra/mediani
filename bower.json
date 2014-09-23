@@ -4,8 +4,8 @@
   "authors": [
     "Antoniputra <akiddcode@gmail.com>"
   ],
-  "description": "Media Manager",
-  "main": "./js/mediani.js",
+  "description": "Jquery Simple Media Manager (with bootstrap 3)",
+  "main": "./dist/mediani.min.js",
   "moduleType": [
     "globals",
     "node"
