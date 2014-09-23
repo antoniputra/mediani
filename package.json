@@ -1,0 +1,29 @@
+{
+  "name": "mediani",
+  "version": "0.0.1",
+  "description": "Jquery simple Media manager (with bootstrap)",
+  "main": "gruntfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/antoniputra/mediani.git"
+  },
+  "keywords": [
+    "Jquery",
+    "simple",
+    "media",
+    "manager",
+    "with",
+    "bootstrap"
+  ],
+  "author": "Antoni Putra",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/antoniputra/mediani/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-uglify": "~0.6.0",
+    "grunt-contrib-concat": "~0.5.0",
+    "load-grunt-tasks": "~0.6.0"
+  }
+}
