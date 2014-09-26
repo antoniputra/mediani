@@ -1,7 +1,7 @@
 Mediani.js
 ==========
 
-Mediani is Plugin Simple Media Manager built with [jQuery](http://jquery.com), which by utilizing the JSON data and translate it to be popup interface.
+Mediani is Plugin Simple Media Manager built with [jQuery](http://jquery.com), which by utilizing the JSON data and translate it to be popup interface. See [Live Demo](http://antoniputra.github.io/mediani)
 
 ### Screenshot
 ![Mediani Screenshot](https://raw.githubusercontent.com/antoniputra/mediani/master/example/img/mediani_screenshot.png)
