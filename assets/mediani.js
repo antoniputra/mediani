@@ -1,3 +1,8 @@
+/*! 
+Mediani v0.0.1 
+(c) 2015 Antoni Putra 
+ */
+ 
 if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery') };
 
 (function ( $ ) {
