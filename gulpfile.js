@@ -1,8 +1,8 @@
 var pkg = require('./package.json')
 	gulp = require('gulp'),
-	jshint = require('gulp-jshint'),
+	// jshint = require('gulp-jshint'),
 	uglify = require('gulp-uglify'),
-	fs = require('vinyl-fs'),
+	// fs = require('vinyl-fs'),
 	header = require('gulp-header'),
 	plumber = require('gulp-plumber'),
 	rename  = require('gulp-rename'),

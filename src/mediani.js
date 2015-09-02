@@ -69,7 +69,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
          	self = this;
          	$modal = $(self.options.template.modal);
          	$modal.modal('show');
-         	self.getModalContent().html('<p class="loading text-center">Loading</p>');
+         	self.getModalContent().html(self.options.template.loading);
 
          	loadApi = $.ajax(self.options.apiUrl, {
                 data: self.options.apiUrlParams || '',
@@ -144,7 +144,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
          	}
          	else
          	{
-         		self.$elem.css({position: 'relative', visibility: 'visible'});
+         		self.$elem.css({position: 'relative', visibility: 'visible'}).attr({readonly: "1"});
          	};
 
          	$modal = $(self.options.template.modal);
@@ -201,14 +201,15 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
 		 * @type {Object}
 		 */
 		var default_options = {
-			apiUrl: '',
-			apiUrlParams: '',
+			apiUrl: '', // always loaded from user options
+			apiUrlParams: '', // always loaded from user options
 			resultNode: 'title',
 			template: {
 				modal: '.mediani-modal',
 				content: '.mediani-modal-content',
 				button: defaultButton,
 				preview: '',
+				loading: '<p class="loading text-center">Loading</p>',
 				// container: '',
 				item: defaultItemTemplate
 			}
@@ -224,9 +225,19 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
 			default_options.template.item = options.setItemTemplate;
 		};
 
+		// set button
+		if ( ! $.isEmptyObject(options.setButton)) {
+			default_options.template.button = options.setButton;
+		};
+
 		// set preview
 		if ( ! $.isEmptyObject(options.setPreview)) {
 			default_options.template.preview = options.setPreview;
+		};
+
+		// set loading
+		if ( ! $.isEmptyObject(options.setLoading)) {
+			default_options.template.loading = options.setLoading;
 		};
 
     	options = $.extend({}, default_options, options);

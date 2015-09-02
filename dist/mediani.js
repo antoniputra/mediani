@@ -8,9 +8,9 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
 (function ( $ ) {
 
 	var defaultItemTemplate = 
-	    '<a class="thumbnail mediani-item" style="float: left; margin:4px 6px; max-width: 200px; height: 300px;">\n '+
-	    '	<img src="http://plensip.dev/uploads/medias/medium/article2.jpg" />\n '+
-	    '	<div class="caption"> \n '+
+	    '<a class="thumbnail mediani-item" style="display: inline-block; width: 200px; height: 300px; overflow: hidden;">\n '+
+	    '	<img src="<%=image_url%>" />\n '+
+	    '	<div class="caption text-left"> \n '+
 	    '		<h3><%=title%></h3> \n '+
 	    '		<p><%=description%></p> \n '+
 	    '	</div> \n '+
@@ -74,8 +74,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
          	self = this;
          	$modal = $(self.options.template.modal);
          	$modal.modal('show');
-         	self.getModalContent().html('<p class="loading text-center">Loading</p>');
-
+         	self.getModalContent().html(self.options.template.loading);
 
          	loadApi = $.ajax(self.options.apiUrl, {
                 data: self.options.apiUrlParams || '',
@@ -85,7 +84,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
 
             loadApi.fail(function(data, status)
             {
-                console.log('Couldn\'t Request to : ' + self.apiUrl);
+                console.log('Couldn\'t Request to : ' + self.options.apiUrl);
                 self.getModalContent().html('Something went wrong');
             });
 
@@ -100,7 +99,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
           * Render item template
           * 
           * @param  {object} data result from api
-          * @return string
+          * @return mix string|void
           */
          renderItem: function(data)
          {
@@ -109,48 +108,48 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
 				nodata = "<p class='text-center'>Data tidak ada</p>";
 				return self.getModalContent().append(nodata);
 			}
-			else
+				
+			item = self.options.template.item;
+			$content = self.getModalContent();
+
+			$.each(data, function(key, value)
 			{
-				item = self.options.template.item;
-				nodeKey = self.options.apiNodes;
-				$content = self.getModalContent();
+				elItem = tmpl(item, value);
 
-				$.each(data, function(key, value)
-				{
-					elItem = tmpl(item, value);
-
-					$elItem = $(elItem);
-					$elItem.attr('data-value', value[self.options.resultNode]);
-					
-					// attach an event 
-					$(".mediani-modal").on('click', '.mediani-item', function (e) {
-						e.preventDefault();
-						e.stopImmediatePropagation();
-						self.selectSingleItem($(this));
-					});
-
-					$content.append($elItem);
+				$elItem = $(elItem);
+				$elItem.attr('data-value', value[self.options.resultNode]);
+				
+				// attach an event 
+				$(".mediani-modal").on('click', '.mediani-item', function (e) {
+					e.preventDefault();
+					e.stopImmediatePropagation();
+					self.selectSingleItem($(this));
 				});
-			}
+
+				$content.append($elItem);
+			});
          },
 
          /**
-          * Handle when user was selecting an item
+          * Handle when user selecting an item
+          * 
           * @param  objects item
           * @return void
           */
          selectSingleItem: function(item)
          {
          	self = this;
-         	console.log('hello '+ item.data('value'));
+         	// console.log('hello '+ item.data('value'));
          	self.$elem.attr('value', item.data('value'));
          	
          	// add html result to selector element
-         	if (self.options.template.preview) {
-         		console.log(item);
+         	if (self.options.template.preview)
+         	{
          		self.options.template.preview.html(item);
-         	} else {
-         		self.$elem.css({position: 'relative', visibility: 'visible'});
+         	}
+         	else
+         	{
+         		self.$elem.css({position: 'relative', visibility: 'visible'}).attr({readonly: "1"});
          	};
 
          	$modal = $(self.options.template.modal);
@@ -170,7 +169,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
         /**
          * Render template
          * 
-         * @return 
+         * @return void
          */
         render: function()
         {
@@ -207,20 +206,15 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
 		 * @type {Object}
 		 */
 		var default_options = {
-			apiUrl: 'http://plensip.dev/coba',
-			apiUrlParams: '',
-			apiNodes: {
-				id: 'id',
-				title: 'title',
-				image: '',
-				description: 'description'
-			},
+			apiUrl: '', // always loaded from user options
+			apiUrlParams: '', // always loaded from user options
 			resultNode: 'title',
 			template: {
 				modal: '.mediani-modal',
 				content: '.mediani-modal-content',
 				button: defaultButton,
 				preview: '',
+				loading: '<p class="loading text-center">Loading</p>',
 				// container: '',
 				item: defaultItemTemplate
 			}
@@ -236,15 +230,24 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
 			default_options.template.item = options.setItemTemplate;
 		};
 
+		// set button
+		if ( ! $.isEmptyObject(options.setButton)) {
+			default_options.template.button = options.setButton;
+		};
+
 		// set preview
 		if ( ! $.isEmptyObject(options.setPreview)) {
 			default_options.template.preview = options.setPreview;
 		};
 
+		// set loading
+		if ( ! $.isEmptyObject(options.setLoading)) {
+			default_options.template.loading = options.setLoading;
+		};
 
     	options = $.extend({}, default_options, options);
 
-    	console.log(options);
+    	// console.log('Options data : ', options);
 
     	return this.each(function() {
     		new Mediani($(this), options);
@@ -284,22 +287,5 @@ if (typeof jQuery === 'undefined') { throw new Error('Mediani Js requires jQuery
 		// Provide some basic currying to the user
 		return data ? fn( data ) : fn;
 	};
-
-
-	    
-
-
-    /**
-     * Get element attribute prefix mediani
-     * @type {Object}
-     */
-    /*$.fn.mediani.elemAttr = function(elem)
-    {
-    	data = elem.data();
-    	console.log(data);
-    	return {
-
-    	}
-    };*/
  
 }( jQuery ));
