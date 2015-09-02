@@ -5,137 +5,187 @@ layout: default
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>{{ site.title }}</title>
-    <meta name="description" content="{{ site.description }}">
-
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://antoniputra.github.io/assets/css/syntax.css">
+	<title>Mediani</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ site.baseurl }}/assets/app.css">
 </head>
 <body>
+	
+	{% include header.html %}
 
-    <a href="https://github.com/antoniputra"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+	<div class="container">
 
-    <div class="container">
-        <h1>Mediani.js Demo v1</h1>
-        <p>
-            Jquery simple media manager (with <a href="http://getbootstrap.com">Bootstrap 3</a>) by <a href="http://twitter.com/antoni_putra12" target="_blank">Antoni Putra</a>
-        </p>
-        <p>
-            <iframe src="http://ghbtns.com/github-btn.html?user=antoniputra&repo=mediani&type=watch&size=large&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="160" height="30"></iframe>
-        </p>
+		<section id="getting-started" class="row">
+			<div class="col-md-7">
+				<h2>Getting Started</h2>
+				<p>1. Download and unzip, then move the <code>dist/mediani.min.js</code> file to your assets directory</p>
+
+				<p>2. Include the following lines of code before footer section of your HTML.</p>
+{% highlight html startinline=true %}
+<script src="/path/to/your/mediani.min.js" type="text/javascript"></script>
+{% endhighlight %}
+				<p>3. Add modal for mediani (like bootstrap modal) : </p>
+{% highlight html startinline=true %}
+<div class="modal mediani-modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content mediani-modal-content clearfix"></div>
+	</div>
+</div>
+{% endhighlight %}
+				<p>Mediani will call <code>.mediani-modal</code> class, when triggered.</p>
+				<p>4. You done, checkout examples below. play and try to submit.</p>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-4">
+				<br><br><br>
+				<div class="text-center">
+					<iframe src="http://ghbtns.com/github-btn.html?user=antoniputra&repo=mediani&type=watch&size=large&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="160" height="30"></iframe>
+				</div>
+				<br>
+				<div class="text-center">
+					<p>
+						<a href="https://github.com/antoniputra/mediani/archive/master.zip" class="btn btn-success btn-lg">
+							<span class="glyphicon glyphicon-download-alt"></span>
+							Download
+						</a>
+					</p>
+					<p><b>Current Version 1.0</b></p>
+				</div>
+			</div>
+		</section>
+		<br><hr><br>
 
 
-        <div class="page-header">
-            <h3>Usage</h3>
-            <p>Just add single line below to your project</p>
+		<!-- Basic -->
+		<section id="basic" class="row">
+			<div class="col-md-5">
+				<h2>Basic</h2>
+				<p>Minimal setup :</p>
+				<form method="GET">
+					<div class="form-group">
+						<label>Select Data</label>
+						<div>
+							<div class="basic-result"></div>
+							<input type="text" name="mediani" class="form-control basic" />
+						</div>
+					</div>
+
+					<hr>
+					<div class="form-group">
+						<button type="submit" class="btn btn-default">Submit</button>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-7">
+				<b>Html</b>
+{% highlight html startinline=true %}
+<div class="basic-result"></div>
+<input type="text" name="mediani" class="form-control basic" />
+{% endhighlight %}
+				<b>Javascript</b>
 {% highlight javascript startinline=true %}
-$(function() {
-    $('.examplecok').mediani();
+$('.basic').mediani({
+	apiUrl: '/mediani/assets/data/example.json', // put your api url at here
+	resultNode: 'image_url', // take value from your api result fields
+	setPreview: $('.basic-result') // target element to append an item
 });
 {% endhighlight %}
-        </div>
+			</div>
+		</section>
+		<br><hr><br>
+		
 
+		
+		<!-- Custom -->
+		<section id="custom" class="row">
+			<div class="col-md-5">
+				<h2>Customize</h2>
+				<p>
+					Let we fetch data from <a href="http://jsonplaceholder.typicode.com/posts" target="_blank">Json Placeholder</a>, and customing template.
+				</p>
+				<form method="GET">
+					<div class="form-group">
+						<label>Select Item</label>
+						<div class="custom-result"> </div>
+						<input type="text" name="mediani" class="form-control custom" />
+					</div>
 
-
-<div class="page-header">
-    <h3>Simple</h3>
-
+					<hr>
+					<div class="form-group">
+						<button type="submit" class="btn btn-default">Submit</button>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-7">
+				<b>Html</b>
 {% highlight html startinline=true %}
-<!-- data-url property are used for your url to get files data (Response should json) -->
-<input type="text" name="myMedia" class="form-control examplecok" data-url="{{ "/assets/data/files.json" | prepend: site.baseurl}}"/>
+<div class="custom-result"> </div>
+<input type="text" name="mediani" class="form-control custom" />
 {% endhighlight %}
-
-    <p>Be sure your json data looks like below : </p>
-
+				<b>Javascript</b>
 {% highlight javascript startinline=true %}
-[
-    "http://lorempixel.com/400/200/sports/1",
-    "http://lorempixel.com/400/200/sports/2",
-    "http://lorempixel.com/400/200/sports/3"
-]
+$('.custom').mediani({
+	apiUrl: 'http://jsonplaceholder.typicode.com/posts',
+	resultNode: 'title',
+	setPreview: $('.custom-result'),
+	setLoading: '<p class="text-center" style="padding: 20px;">Tunggu sebentar prend...</p>',
+	setItemTemplate: 'custom_tmpl',
+	setButton: '<a class="btn btn-info"><span class="glyphicon glyphicon-search"></span> My Custom button</a>',
+});
+
+// here you customize template per each item.
+<script type="text/html" id="custom_tmpl">
+	<a href="#" class="list-group-item mediani-item">
+		<h4 class="list-group-item-heading"><%=title%></h4>
+		<p class="list-group-item-text"><%=body%></p>
+	</a>
+</script>
 {% endhighlight %}
-    
-    Result : 
-    <div class="well">
-        <input type="text" name="myMedia" class="form-control examplecok" data-url="{{ "/assets/data/files.json" | prepend: site.baseurl}}" />
-    </div>
-</div>
+			</div>
+		</section>
+
+	</div>
+
+	<footer class="footer text-center">
+		&copy; Copyright 2014 Antoni Putra | LICENSE
+	</footer>
+
+	<div class="modal mediani-modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content mediani-modal-content clearfix"></div>
+		</div>
+	</div>
 
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="{{ site.baseurl }}/assets/mediani.js"></script>
 
-<div class="page-header">
-    <h3>Complex</h3>
-    <p>Gain the medias with more detailed information (caption, description, file)</p>
+	<script type="text/javascript">
+		$('.basic').mediani({
+	    	apiUrl: '/mediani/assets/data/example.json',
+	    	resultNode: 'image_url',
+	    	setPreview: $('.basic-result')
+	    });
 
-{% highlight html startinline=true %}
-<input type="text" name="Media" class="form-control examplecok" data-url="assets/data/files_details.json" data-mediani-type="complexTemplate" />
-{% endhighlight %}
+	    $('.custom').mediani({
+	    	apiUrl: 'http://jsonplaceholder.typicode.com/posts',
+	    	resultNode: 'title',
+	    	setPreview: $('.custom-result'),
+	    	setLoading: '<p class="text-center" style="padding: 20px;">Tunggu sebentar prend...</p>',
+	    	setItemTemplate: 'custom_tmpl',
+	    	setButton: '<a class="btn btn-info"><span class="glyphicon glyphicon-search"></span> My Custom button</a>',
+	    });
+	</script>
 
-    <p>For complex media, be sure your json data like this : </p>
-{% highlight javascript startinline=true %}
-[
-    {
-        "file": "http://lorempixel.com/400/200/sports/1",
-        "caption": "Awesome Images",
-        "description": "Some Description"
-    },
-    {
-        "file": "http://lorempixel.com/400/200/sports/2",
-        "caption": "Wonderful Images",
-        "description": "Lorem ipsum"
-    },
-    {
-        "file": "http://lorempixel.com/400/200/sports/3",
-        "caption": "Be Strong",
-        "description": "Jiffie duke derided kid fir jerrie duke jerk"
-    }
-]
-{% endhighlight %}
-    
-    Result : 
-    <div class="well">
-        <input type="text" name="Media" class="form-control examplecok" data-url="assets/data/files_details.json" data-mediani-type="complexTemplate" />        
-    </div>
-</div>
+	<script type="text/html" id="custom_tmpl">
+		<a href="#" class="list-group-item mediani-item">
+			<h4 class="list-group-item-heading"><%=title%></h4>
+			<p class="list-group-item-text"><%=body%></p>
+		</a>
+	</script>
 
-
-        <div class="page-header">
-            <h3>Contribute</h3>
-            <p>
-                All forms of contributions are received. visit this <a href="https://github.com/antoniputra/mediani">repository</a>
-            </p>
-            <p>
-                if you found something wrong, Please post <a href="https://github.com/antoniputra/mediani/issues" target="_blank">Issues</a>
-            </p>
-        </div>
-
-        <div>
-            <a href="https://twitter.com/antoni_putra12" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @antoni_putra12</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        </div>
-
-    </div>
-
-
-    <footer class="text-center" style="margin-top:20px; padding:30px 0px; border-top:1px solid silver;">
-        &copy; Copyright 2014 Antoni Putra | <a href="https://github.com/antoniputra/mediani/blob/master/LICENSE">LICENSE</a>
-    </footer>
-
-
-
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    
-    <!-- load mediani.js -->
-    <script src="assets/mediani.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(function() {
-            $('.examplecok').mediani();
-        });
-    </script>
 </body>
 </html>
